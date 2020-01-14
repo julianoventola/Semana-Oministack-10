@@ -5,4 +5,4 @@ Aplicação para localização de desenvolvedores por geolocalização
  - express - Gerenciamento de rotas e backend
  - nodemon - Auto restart do server (dev dependency)
  - mongoose - Conexão com o banco de dado mongoDB Atlas
- 
+ - axios - Requisição ajax em APIs

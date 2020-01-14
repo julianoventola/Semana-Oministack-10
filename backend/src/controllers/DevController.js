@@ -1,13 +1,16 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
+const parseStringAsArray = require('../utils/parseStringAsArray');
 
 module.exports = {
+  // List all devs
   async index(req, res){
     const devs = await Dev.find();
 
     return res.json(devs);
   },
 
+  // Create a new dev
   async store(req, res){ 
     // Get github user info from body on post route
     const { github_username, techs, latitude, longitude } = req.body;
@@ -22,7 +25,7 @@ module.exports = {
       const { name = login, avatar_url, bio } = data;
   
       // Change each tech(text) in array as item
-      const techsArray = techs.split(",").map(tech => tech.trim());
+      const techsArray = parseStringAsArray(techs);
   
       // Create geolocation for lat & long (based on PointSchema)
       const location = {
@@ -41,5 +44,6 @@ module.exports = {
       })
     }  
     return res.json(dev);
-  }
+  },
+
 };

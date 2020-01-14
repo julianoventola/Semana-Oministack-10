@@ -1,5 +1,13 @@
-# Semana-Oministack-10
+# Semana-Oministack-10 (dev em Windows)
 Aplicação para localização de desenvolvedores por geolocalização
+
+# Planilha com programas base e bibliotecas dev
+https://docs.google.com/spreadsheets/d/1R_CCsAcdU7rG0qgB5I7FA4sThnjYPjGr-qfzLs1Oi8w/edit?usp=sharing
+
+# Como iniciar:
+ - Utilize a planilha para instalar os programas
+ - Configure a conexão com o mongo Atlas no arquivo src/index.js
+ - Rode o comando: yarn dev
 
 # Backend Dependencies
  - express - Gerenciamento de rotas e backend

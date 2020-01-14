@@ -8,7 +8,7 @@ mongoose.connect(
   'mongodb+srv://juliano10:juliano10@cluster0-ppp0b.mongodb.net/week10?retryWrites=true&w=majority',
   {
     useNewUrlParser: true, 
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
 });
 
 // Enable server to get json information on routes

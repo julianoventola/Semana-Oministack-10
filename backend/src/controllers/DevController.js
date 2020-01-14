@@ -54,27 +54,44 @@ module.exports = {
     // Check if user exists in database
     let dev = await Dev.findOne({github_username});
 
+    // If username do not exists
+    if(!dev){
+      return res.status(400).json({message: "Usuário não encontrado!"});
+    }
+    
     // If exists, update it
-    if(dev){
-
-      // If update just some fields, it will use old dev info to complete
-      const {
+    // If update just some fields, it will use old dev info to complete
+    const {
         name = dev.name,
         bio = dev.bio,
         avatar_url = dev.avatar_url } = req.body;
 
-      // Check if techs were updated to transform text in Array for each tech
-      const techs = req.body.techs ? parseStringAsArray(req.body.techs) : dev.techs;
+    // Check if techs were updated to transform text in Array for each tech
+    const techs = req.body.techs ? parseStringAsArray(req.body.techs) : dev.techs;
       
-      // Update Dev and return the "updated" Dev
-      let updatedDev = await Dev.findOneAndUpdate(github_username, {name, techs, bio, avatar_url}, {
-        new: true
-      });  
+    // Update Dev and return the "updated" Dev
+    let updatedDev = await Dev.findOneAndUpdate(github_username, {name, techs, bio, avatar_url}, {
+      new: true
+    });  
 
-      return res.json(updatedDev);
-    }
+    return res.json(updatedDev);
+  },
 
-    // If username do not exists
-    return res.status(400).json({message: "Usuário não encontrado!"});
+  // Delete Dev
+  async destroy(req, res){
+     // Get github username
+     const {github_username} = req.params;
+
+     // Check if user exists in database
+     let dev = await Dev.findOne({github_username});
+
+     if(!dev) {
+      return res.status(400).json({message: "Usuário não encontrado!"});
+     }
+
+     // Delete user
+     await Dev.findOneAndDelete(github_username)
+
+     return res.json({ deleted : true});
   }
 };

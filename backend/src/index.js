@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const routes = require('./routes');
 const app = express();
 
 // Connect into MongoDb collection
@@ -14,10 +14,8 @@ mongoose.connect(
 // Enable server to get json information on routes
 app.use(express.json());
 
-// Main route
-app.post("/users", (req, res) => { 
-  const user = req.body
-  return res.json(user);
-})
+// Enable server to use routes
+app.use(routes);
 
+// Running server
 app.listen(3333, () => console.log('Server running on port 3333...'));

@@ -35,6 +35,10 @@ function App() {
     )
   },[]);
 
+  async function handleAddDev(){
+
+  }
+
   return (
     <div id="app">
       { /* --- > ASIDE < ---*/ }

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const routes = require('./routes');
 const app = express();
 
@@ -12,6 +13,9 @@ mongoose.connect(
     useFindAndModify: false,
     useCreateIndex: true,
 });
+
+// External access to the server - no option mean ANY origin access 
+app.use(cors());
 
 // Enable server to get json information on routes
 app.use(express.json());

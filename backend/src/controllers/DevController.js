@@ -60,17 +60,25 @@ module.exports = {
     }
     
     // If exists, update it
-    // If update just some fields, it will use old dev info to complete
+    // If update just for some fields, it will use old dev info to complete
     const {
         name = dev.name,
         bio = dev.bio,
+        longitude = dev.location.coordinates[0],
+        latitude = dev.location.coordinates[1], 
         avatar_url = dev.avatar_url } = req.body;
 
     // Check if techs were updated to transform text in Array for each tech
     const techs = req.body.techs ? parseStringAsArray(req.body.techs) : dev.techs;
-      
+    
+     // Create geolocation for lat & long (based on PointSchema)
+    const location = {
+      type: 'Point',
+      coordinates: [longitude, latitude],
+    }
+
     // Update Dev and return the "updated" Dev
-    let updatedDev = await Dev.findOneAndUpdate(github_username, {name, techs, bio, avatar_url}, {
+    let updatedDev = await Dev.findOneAndUpdate(github_username, {name, techs, bio, avatar_url, location}, {
       new: true
     });  
 

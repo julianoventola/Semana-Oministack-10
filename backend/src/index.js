@@ -9,6 +9,8 @@ mongoose.connect(
   {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
 });
 
 // Enable server to get json information on routes

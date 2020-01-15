@@ -10,13 +10,14 @@ import './Main.css';
 function App() {
 
   // Create States to use values
+  const [devs, setDevs] = useState([]);
   const [github_username, setGithubUsername] = useState(''); 
   const [techs, setTechs] = useState('');  
   const [latitude, setLatitude] = useState(''); 
   const [longitude, setLongitude] = useState('');
 
 
-  // Run it when all components are mounted
+  // Run it  to update GEOLOCATION when all components are mounted
   useEffect(() => {
     // Function to get geolocation
     navigator.geolocation.getCurrentPosition(
@@ -36,6 +37,17 @@ function App() {
     )
   },[]);
 
+  // Run it  to update All DEVS when all components are mounted
+  useEffect(() => {
+    async function loadDevs() {
+      // Load all devs saved in database
+      const response = await api.get('/devs');
+      setDevs(response.data);
+    }
+
+    loadDevs();
+  },[]);
+
   // Access to server though API(axios)
   async function handleAddDev(e){
     // Prevent form to change to "next" page
@@ -52,6 +64,8 @@ function App() {
     // Clean githubusername and techs fields
     setGithubUsername('');
     setTechs('');
+
+    setDevs([...devs, response.data]);
     
   }
 
@@ -114,53 +128,20 @@ function App() {
       { /* --- > MAIN < ---*/ }
       <main>
         <ul>
-          <li className="dev-item">
+          {devs.map(dev => (
+            <li className="dev-item" key={dev._id}>
               <header>
-                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Juliano Ventola"/>
+                <img src={dev.avatar_url} alt={dev.name}/>
                 <div className="user-info">
-                  <strong>Juliano Ventola</strong>
-                  <span>ReactJS, React Native, Node.js</span>
+                  <strong>{dev.name}</strong>
+                  <span>{dev.techs.join(', ')}</span>
                 </div>
               </header>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, ducimus nisi ratione libero ab</p>
-              <a href="https://github.com">Acessar Perfil no Github</a>
-          </li>
-
-          <li className="dev-item">
-              <header>
-                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Juliano Ventola"/>
-                <div className="user-info">
-                  <strong>Juliano Ventola</strong>
-                  <span>ReactJS, React Native, Node.js</span>
-                </div>
-              </header>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, ducimus nisi ratione libero ab</p>
-              <a href="https://github.com">Acessar Perfil no Github</a>
-          </li>
-
-          <li className="dev-item">
-              <header>
-                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Juliano Ventola"/>
-                <div className="user-info">
-                  <strong>Juliano Ventola</strong>
-                  <span>ReactJS, React Native, Node.js</span>
-                </div>
-              </header>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, ducimus nisi ratione libero ab</p>
-              <a href="https://github.com">Acessar Perfil no Github</a>
-          </li>
-
-          <li className="dev-item">
-              <header>
-                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Juliano Ventola"/>
-                <div className="user-info">
-                  <strong>Juliano Ventola</strong>
-                  <span>ReactJS, React Native, Node.js</span>
-                </div>
-              </header>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, ducimus nisi ratione libero ab</p>
-              <a href="https://github.com">Acessar Perfil no Github</a>
-          </li>
+              <p>{dev.bio}</p>
+              <a href={`https://github.com/${dev.github_username}`}>Acessar Perfil no Github</a>
+            </li>)
+          )}
+          
         </ul>
       </main>
 

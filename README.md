@@ -1,5 +1,5 @@
 # Semana-Oministack-10 (dev em Windows)
-Aplicação para localização de desenvolvedores por geolocalização
+Aplicação para localização de desenvolvedores por geolocalização e tecnologias utilizadas pelos mesmos
 
 # Planilha com programas base e bibliotecas dev
 https://docs.google.com/spreadsheets/d/1R_CCsAcdU7rG0qgB5I7FA4sThnjYPjGr-qfzLs1Oi8w/edit?usp=sharing

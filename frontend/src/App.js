@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import api from './services/api';
 
 //* --- > Css import < ---*
 import './global.css';
@@ -35,8 +36,23 @@ function App() {
     )
   },[]);
 
-  async function handleAddDev(){
+  // Access to server though API(axios)
+  async function handleAddDev(e){
+    // Prevent form to change to "next" page
+    e.preventDefault();
 
+    // Send all form info to server to save in database
+    const response = await api.post('/devs', {
+      github_username,
+      techs,
+      latitude,
+      longitude,
+    })
+
+    // Clean githubusername and techs fields
+    setGithubUsername('');
+    setTechs('');
+    
   }
 
   return (
@@ -44,7 +60,7 @@ function App() {
       { /* --- > ASIDE < ---*/ }
       <aside>
         <strong>Cadastrar</strong>
-        <form>
+        <form onSubmit={handleAddDev}>
           <div className="input-block">
             <label htmlFor="github_username">Usuário do Github</label>
             <input 

@@ -25,7 +25,7 @@ https://docs.google.com/spreadsheets/d/1R_CCsAcdU7rG0qgB5I7FA4sThnjYPjGr-qfzLs1O
     - Query (no-body): latitude, longitude, techs
     
   - PUT - Alterar Dev: http://localhost:3333/devs/"github_username"
-    - Json (body): Opcionais - techs, name, bio e avatar_url
+    - Json (body): Opcionais - techs, name, bio, avatar_url, latitude e longitude
     
   - DELETE - Deletar Dev: http://localhost:3333/devs/"github_username"
    

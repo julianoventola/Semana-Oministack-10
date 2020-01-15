@@ -4,7 +4,7 @@ Aplicação para localização de desenvolvedores por geolocalização e tecnolo
 # Planilha com programas base e bibliotecas dev
 https://docs.google.com/spreadsheets/d/1R_CCsAcdU7rG0qgB5I7FA4sThnjYPjGr-qfzLs1Oi8w/edit?usp=sharing
 
-# Como iniciar:
+# Como iniciar backend:
  - Utilize a planilha para instalar os programas
  - Configure a conexão com o mongo Atlas no arquivo src/index.js
  - Rode o comando: yarn dev
@@ -28,4 +28,11 @@ https://docs.google.com/spreadsheets/d/1R_CCsAcdU7rG0qgB5I7FA4sThnjYPjGr-qfzLs1O
     - Json (body): Opcionais - techs, name, bio, avatar_url, latitude e longitude
     
   - DELETE - Deletar Dev: http://localhost:3333/devs/"github_username"
-   
+ 
+# Como iniciar frontend:
+ - Rode o comando: Yarn start
+ 
+# Frontend 
+ - Utilizando React
+ - Css padrão
+ 

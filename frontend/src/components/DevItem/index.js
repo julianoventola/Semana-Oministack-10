@@ -7,7 +7,7 @@ export default function DevItem({dev, onSubmit}) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await onSubmit(dev);
+    await onSubmit(dev.github_username);
   }
 
   function handleLocation(dev) {

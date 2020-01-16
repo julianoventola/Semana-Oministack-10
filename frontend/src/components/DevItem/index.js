@@ -7,7 +7,12 @@ export default function DevItem({dev, onSubmit}) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await onSubmit(dev.github_username);
+    await onSubmit(dev);
+  }
+
+  function handleLocation(dev) {
+    window.open(
+      `http://maps.google.com/maps?q=${dev.location.coordinates[1]},${dev.location.coordinates[0]}`, "_blank")
   }
 
   return(
@@ -21,18 +26,25 @@ export default function DevItem({dev, onSubmit}) {
       </header>
       <p>{dev.bio}</p>
       <a href={`https://github.com/${dev.github_username}`}>Acessar Perfil no Github</a>
-      <form className="icons" onSubmit={handleSubmit}  >
-
-        <button title="Deletar" 
-          type="submit"
-          className="delete-button"
-          
-        ><MdDeleteForever size={30}/>
-        </button>
-     
-        <button title="Localizar" type="button" className="maps-button"><MdEditLocation size={30}/></button>
-        <button title="Editar" type="button" className="edit-button"><MdModeEdit size={30}/></button>
-      </form>
+      <div className="icons">
+        {/* DELETE */}
+        <form onSubmit={handleSubmit}>
+          <button title="Deletar" 
+            type="submit"
+            className="delete-button"><MdDeleteForever size={30}/>
+          </button>
+        </form> 
+        {/* MAPS */}
+          <button title="Localizar"
+            type="button"
+            className="maps-button"
+            onClick={() => handleLocation(dev)}
+          ><MdEditLocation size={30}/></button>
+        {/* EDIT */}
+        <form  onSubmit={handleSubmit}>
+          <button title="Editar" type="button" className="edit-button"><MdModeEdit size={30}/></button>
+        </form>  
+      </div>   
     </li>
   );
 }

@@ -34,8 +34,8 @@ function App() {
     setDevs([...devs, response.data]);
   }
 
-  async function handleDeleteDev(github_username) {
-    await api.delete(`/devs/${github_username}`);
+  async function handleDeleteDev(dev) {
+    await api.delete(`/devs/${dev.github_username}`);
     async function loadDevs() {
       // Load all devs saved in database
       const response = await api.get('/devs');
@@ -44,7 +44,7 @@ function App() {
 
     loadDevs();
   }
-  
+
   return (
     <div id="app">
       { /* --- > ASIDE < ---*/ }

@@ -34,6 +34,17 @@ function App() {
     setDevs([...devs, response.data]);
   }
 
+  async function handleDeleteDev(github_username) {
+    await api.delete(`/devs/${github_username}`);
+    async function loadDevs() {
+      // Load all devs saved in database
+      const response = await api.get('/devs');
+      setDevs(response.data);
+    }
+
+    loadDevs();
+  }
+  
   return (
     <div id="app">
       { /* --- > ASIDE < ---*/ }
@@ -45,7 +56,7 @@ function App() {
       { /* --- > MAIN < ---*/ }
       <main>
         <ul>
-          {devs.map(dev => (<DevItem key={dev._id} dev={dev} />))}
+          {devs.map(dev => (<DevItem key={dev._id} dev={dev} onSubmit={handleDeleteDev} />))}
         </ul>
       </main>
     </div>

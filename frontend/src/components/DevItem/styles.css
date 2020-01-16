@@ -49,3 +49,54 @@ li.dev-item a {
 li.dev-item a:hover {
   color: #5a2ea6;
 }
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px 20px;
+}
+.delete-button {
+  color: rgb(255, 58, 58);
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 70px;
+  height: 40px;
+  transition: background 0.5s;
+}
+
+.delete-button:hover{
+  background: rgb(255, 58, 58);
+  color: white
+}
+
+.maps-button {
+  color: rgb(0, 199, 10);
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 70px;
+  transition: background 0.5s;
+}
+
+.maps-button:hover {
+  background:  rgb(0, 199, 10);
+  color: white
+}
+
+.edit-button {
+  color: rgb(228, 194, 1);
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 70px;
+  transition: background 0.5s;
+}
+
+.edit-button:hover {
+  background:  rgb(228, 194, 1);
+  color: white
+}

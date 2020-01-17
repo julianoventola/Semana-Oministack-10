@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 // Get server information using API
 import api from '../services/api';
-import { connect, disconnect } from '../services/socket';
+import { connect, disconnect, subcribeToNewDevs } from '../services/socket';
 
 function Main({ navigation }) {
   // Save states for Dev, location and tech(input text)
@@ -36,8 +36,15 @@ function Main({ navigation }) {
     loadInitialPosition();
   },[])
 
+  // "Reload" all devs based on websocket response
+  useEffect(() => {
+    subcribeToNewDevs(dev => setDevs([...devs, dev]));
+
+  },[devs]);
+
   // Setup websocket connetion for new Devs in realtime
   function setupWebsocket() {
+    disconnect();
     const {latitude, longitude} = currentRegion;
 
     connect(latitude, longitude, techs);

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
-
+const { findConnections, sendMessage } = require('../websocket');
 module.exports = {
   // List all devs
   async index(req, res){
@@ -42,6 +42,15 @@ module.exports = {
         techs: techsArray,
         location
       })
+
+      // Use websocket connections to filter new devs by techs and location
+      const sendSocketMessageTo = findConnections(
+        {latitude, longitude},
+        techsArray,
+        )
+      
+      //Sending new devs in filter searched
+      sendMessage(sendSocketMessageTo, 'new-dev', dev)      
     }  
     return res.json(dev);
   },

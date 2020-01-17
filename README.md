@@ -45,4 +45,7 @@ DELETE - Deletar Dev: http://localhost:3333/devs/"github_username"
 # Mobile
 - Utilização de Expo
 - React Native
+- Socket.io
+
+* Todas as bibliotecas serão colocadas no link da planilha com uma explicação breve, recomendo um entendimento mais amplo do socket.io por o modo de funionamento não é tão simples.
 

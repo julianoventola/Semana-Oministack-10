@@ -4,16 +4,17 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 
-// Pegar informação do servidor
+// Get server information using API
 import api from '../services/api';
+import { connect, disconnect } from '../services/socket';
 
 function Main({ navigation }) {
-  // Salvar informações dos Dev, localização e tech(input de texto)
+  // Save states for Dev, location and tech(input text)
   const [devs, setDevs] = useState([]);
   const [currentRegion, setCurrentRegion] = useState(null);
   const [techs, setTechs] = useState('');
 
-  // Pede a autorização da localização e encontra o usuário pela geolocalização
+  // Ask permissions for geolocation and generate it on the map
   useEffect(()=> {
     async function loadInitialPosition() {
       const { granted } = await requestPermissionsAsync();
@@ -35,7 +36,14 @@ function Main({ navigation }) {
     loadInitialPosition();
   },[])
 
-  // Carrega os usuários no mapa baseado nas techs
+  // Setup websocket connetion for new Devs in realtime
+  function setupWebsocket() {
+    const {latitude, longitude} = currentRegion;
+
+    connect(latitude, longitude, techs);
+  }
+
+  // Load Devs in the map based on techs search
   async function loadDevs() {
     const {latitude, longitude} = currentRegion;
 
@@ -45,28 +53,29 @@ function Main({ navigation }) {
       techs,
     }});
     setDevs(response.data);
+    setupWebsocket();
   }
 
-  // Recarrega a posição do usuário qnd mapa alterado
+  // Reloads devs location when maps scrolled
   function handleRegionChanged(region) {
     setCurrentRegion(region);
   }
 
-  // Enquanto não obtem a localização, null
+  // If geolocation is not permitted, null
   if (!currentRegion) {
     return null;
   }
 
   return (
     <>
-        {/* Desenha o mapa na tela */}
+        {/* Draw map */}
         <MapView onRegionChangeComplete={handleRegionChanged} initialRegion={currentRegion} style={styles.map}>
           {devs.map(dev => (
-            // Marcador no mapa
+            // Puts maker in map
             <Marker key={dev._id} coordinate={{latitude: dev.location.coordinates[1], longitude: dev.location.coordinates[0]}}>
             <Image style={styles.avatar} source={{ uri: dev.avatar_url}} />
             <Callout onPress={() => {
-              // Navegação para pagina Profile enviando o username em parametro
+              // Navigate to Profile sending username as param
               navigation.navigate('Profile', { github_username: dev.github_username });
             }}>
               <View style={styles.callout}>
@@ -78,7 +87,7 @@ function Main({ navigation }) {
         </Marker>
           ))}
         </MapView>
-        {/* Input de texto */}
+        {/* Input Text */}
         <View style={styles.searchForm}>
           <TextInput 
             style={styles.searchInput}
@@ -89,7 +98,7 @@ function Main({ navigation }) {
             value={techs}
             onChangeText={text => setTechs(text)}
           />
-         {/* botão para pesquisa*/}
+         {/* Search button*/}
           <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
               <MaterialIcons name="my-location" size={20} color="#fff"/>
           </TouchableOpacity>
@@ -98,7 +107,7 @@ function Main({ navigation }) {
   );
 }
 
-// Estilização dos componentes
+// Stylization for components
 const styles = StyleSheet.create({
   map: {
     flex: 1

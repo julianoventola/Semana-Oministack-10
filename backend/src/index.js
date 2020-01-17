@@ -1,8 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const http = require('http');
 const routes = require('./routes');
+const { setupWebsocket } = require('./websocket');
+
 const app = express();
+
+// "Extract" the server from express
+const server = http.Server(app);
+setupWebsocket(server);
 
 // Connect into MongoDb collection
 mongoose.connect(

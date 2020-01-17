@@ -4,9 +4,11 @@ import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 
+// Pegar informação do servidor
 import api from '../services/api';
 
 function Main({ navigation }) {
+  // Salvar informações dos Dev, localização e tech(input de texto)
   const [devs, setDevs] = useState([]);
   const [currentRegion, setCurrentRegion] = useState(null);
   const [techs, setTechs] = useState('');
@@ -33,7 +35,7 @@ function Main({ navigation }) {
     loadInitialPosition();
   },[])
 
-  // Carrega os usuários do servidor
+  // Carrega os usuários no mapa baseado nas techs
   async function loadDevs() {
     const {latitude, longitude} = currentRegion;
 
@@ -42,9 +44,7 @@ function Main({ navigation }) {
       longitude,
       techs,
     }});
-
     setDevs(response.data);
-
   }
 
   // Recarrega a posição do usuário qnd mapa alterado
@@ -52,14 +52,17 @@ function Main({ navigation }) {
     setCurrentRegion(region);
   }
 
+  // Enquanto não obtem a localização, null
   if (!currentRegion) {
     return null;
   }
 
   return (
     <>
+        {/* Desenha o mapa na tela */}
         <MapView onRegionChangeComplete={handleRegionChanged} initialRegion={currentRegion} style={styles.map}>
           {devs.map(dev => (
+            // Marcador no mapa
             <Marker key={dev._id} coordinate={{latitude: dev.location.coordinates[1], longitude: dev.location.coordinates[0]}}>
             <Image style={styles.avatar} source={{ uri: dev.avatar_url}} />
             <Callout onPress={() => {
@@ -75,6 +78,7 @@ function Main({ navigation }) {
         </Marker>
           ))}
         </MapView>
+        {/* Input de texto */}
         <View style={styles.searchForm}>
           <TextInput 
             style={styles.searchInput}
@@ -85,6 +89,7 @@ function Main({ navigation }) {
             value={techs}
             onChangeText={text => setTechs(text)}
           />
+         {/* botão para pesquisa*/}
           <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
               <MaterialIcons name="my-location" size={20} color="#fff"/>
           </TouchableOpacity>
@@ -93,6 +98,7 @@ function Main({ navigation }) {
   );
 }
 
+// Estilização dos componentes
 const styles = StyleSheet.create({
   map: {
     flex: 1

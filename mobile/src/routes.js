@@ -5,6 +5,7 @@ import Main from './pages/Main';
 import Profile from './pages/Profile';
 
 const Routes = createAppContainer(
+  // Seta as rotas de cada página
   createStackNavigator({
     Main: {
       screen: Main,

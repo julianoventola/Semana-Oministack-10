@@ -31,4 +31,5 @@ app.use(express.json());
 app.use(routes);
 
 // Running server
-app.listen(3333, () => console.log('Server running on port 3333...'));
+// Changed 'app' to 'server' to use socket.io
+server.listen(3333, () => console.log('Server running on port 3333...'));

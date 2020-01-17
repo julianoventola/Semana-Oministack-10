@@ -35,3 +35,13 @@ DELETE - Deletar Dev: http://localhost:3333/devs/"github_username"
 # Frontend
 - Utilizando React
 - Css padrão
+
+# Mobile
+- Utilização de Expo
+- React Native
+
+# Como iniciar mobile:
+- Rode o comando: Yarn start
+- Tenho o app do expo instalado em seu smartphone
+- Scan do QR code
+ - *Qualquer alteração pode ser critica para o sistema, em caso de problemas com uptade do codigo, encerre tudo e rode desde o inicio

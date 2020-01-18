@@ -107,7 +107,7 @@ module.exports = {
      }
 
      // Delete user
-     await Dev.findOneAndDelete(github_username)
+     await Dev.deleteOne({github_username});
 
      return res.json({ deleted : true});
   }

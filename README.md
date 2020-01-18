@@ -45,6 +45,17 @@ DELETE - Deletar Dev: http://localhost:3333/devs/"github_username"
 # Mobile
 - Utilização de Expo
 - React Native
+- React navigation
+- React-native-gesture-handler
+- React-native-reanumated
+- React-native-screens
+- React-native-safe-area-context
+- React-navigation-stack
+- React-native-community/masked-view
+- React-native-maps
+- Expo-location
+- React-native-webview
+- Axios
 - Socket.io
 
 * Todas as bibliotecas estão no link da planilha com uma explicação breve de cada uma (separados por aba), recomendo um entendimento mais amplo do socket.io, pois o modo de funcionamento não é tão simples.
